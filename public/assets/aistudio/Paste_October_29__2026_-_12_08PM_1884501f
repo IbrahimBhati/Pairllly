@@ -1,0 +1,1842 @@
+# PAIRLY — REPLIT AGENT PHASE-BY-PHASE BUILD PROMPTS
+
+**Project:** Pairly  
+**Tagline:** Share Skills. Help Others. Grow Together.  
+**Platform:** Replit Agent  
+**Architecture:** Next.js + TypeScript + Tailwind CSS + shadcn/ui + Supabase
+
+## PHASE 1 — PROJECT SETUP, DESIGN SYSTEM, LANDING PAGE AND DATABASE FOUNDATION
+
+```text
+You are the lead full-stack engineer responsible for building Pairly, a university-level peer-to-peer skill-sharing platform.
+
+PROJECT:
+Pairly
+
+TAGLINE:
+Share Skills. Help Others. Grow Together.
+
+PRODUCT:
+Pairly connects students, teachers, professionals, and community members who can teach skills, learn from others, exchange knowledge, and help one another.
+
+CORE FEATURE:
+Smart Matching. A person who offers Graphic Design and wants to learn English should be matched with a person who offers English and wants Graphic Design.
+
+PLATFORM:
+We are building directly in Replit using Replit Agent.
+
+TECH STACK:
+- Next.js App Router
+- React
+- TypeScript strict mode
+- Tailwind CSS
+- shadcn/ui
+- Lucide React icons
+- Supabase Auth
+- Supabase PostgreSQL
+- Supabase Realtime
+- Zod
+- React Hook Form
+- @supabase/ssr
+- @supabase/supabase-js
+- next-themes, prepared for Phase 7
+
+IMPORTANT REPLIT WORKFLOW:
+1. Inspect the current workspace before editing.
+2. If the workspace is empty, initialize the project. If an application already exists, preserve working code.
+3. Start by producing a concise implementation plan, then implement this phase. Do not stop after presenting the plan.
+4. Keep the app runnable in Replit Preview throughout development.
+5. Use the existing working Run configuration unless a change is necessary.
+6. Use Replit checkpoints or version control before substantial changes.
+7. Do not publish or deploy the application yet.
+8. Do not install unnecessary packages.
+9. Consult current official Replit and Supabase documentation when framework or integration details are uncertain.
+10. Never report a test as successful unless it was executed.
+
+DATABASE STRATEGY:
+Use Supabase as the application's only primary database and authentication provider. Do not create a second database using Replit Database.
+
+For development, use a dedicated Supabase development project. Keep schema changes in version-controlled SQL migrations. Do not apply experimental migrations to production.
+
+Store credentials using Replit Secrets. Never write real credentials into source files or commit them to Git.
+
+--------------------------------------------------
+1. INITIALIZE THE PROJECT
+--------------------------------------------------
+
+Create the application using Next.js App Router, TypeScript, Tailwind CSS, and shadcn/ui.
+
+Make sure the app runs correctly in Replit Preview.
+
+Create a maintainable project structure with:
+- app/
+- components/
+- components/ui/
+- components/layout/
+- components/landing/
+- lib/
+- lib/supabase/
+- lib/validation/
+- hooks/
+- types/
+- supabase/migrations/
+- docs/
+
+Use strict TypeScript. Avoid any unless there is a documented reason.
+
+Create reusable components rather than building the entire interface in one page component.
+
+--------------------------------------------------
+2. PAIRLY DESIGN SYSTEM
+--------------------------------------------------
+
+Use these exact colors:
+
+Primary Deep Purple: #4B3F72
+Secondary Soft Lavender: #A78BFA
+Success Mint Green: #A7F3D0
+Background Off White: #F8FAFC
+Text Dark Navy: #1F2937
+
+Create semantic CSS variables for:
+- background
+- foreground
+- primary
+- secondary
+- accent
+- success
+- muted
+- border
+- input
+- destructive
+- card
+- popover
+
+Prepare corresponding dark-theme tokens, but do not finish the theme toggle until Phase 7.
+
+Visual style:
+- modern and friendly
+- premium but approachable
+- soft rounded cards
+- rounded-xl inputs and buttons
+- rounded-2xl feature cards
+- clean typography
+- generous whitespace
+- subtle borders and restrained shadows
+- accessible color contrast
+- responsive layouts
+- consistent component sizing
+
+Use Lucide icons, not emoji as primary interface icons.
+
+Avoid excessive gradients, neon colors, excessive shadows, clutter, and generic template styling.
+
+Create reusable components:
+- AppLogo
+- Button
+- Card
+- Input
+- Textarea
+- Badge
+- Avatar
+- Modal/Dialog
+- DropdownMenu
+- LoadingState
+- Skeleton
+- ErrorState
+- EmptyState
+- PageHeader
+- SectionHeading
+- MainNavbar
+- SiteFooter
+
+--------------------------------------------------
+3. LANDING PAGE
+--------------------------------------------------
+
+Build the complete landing page at /.
+
+Include:
+
+A. Navbar
+- Pairly logo
+- How It Works
+- Explore Skills
+- Community
+- Login
+- Get Started
+
+B. Hero section
+Headline: "Your Skills Have More Value When Shared."
+
+Supporting text explaining that Pairly connects people who want to exchange knowledge and grow together.
+
+Primary CTA: Find Your Match
+Secondary CTA: Offer a Skill
+
+Add an attractive visual showing two people exchanging skills.
+
+C. How It Works
+1. Create your profile.
+2. Share what you can teach and what you want to learn.
+3. Discover compatible people and connect.
+
+D. Smart Matching section
+Illustrate a reciprocal match:
+Person A offers Graphic Design and wants English.
+Person B offers English and wants Graphic Design.
+
+Clearly explain why the two people are compatible.
+
+This is a static educational example, not a real calculated match.
+
+E. Community section
+Explain how Pairly supports:
+- Students
+- Teachers
+- Professionals
+- Community members
+
+F. Benefits section
+- Learn new skills
+- Share existing knowledge
+- Meet compatible people
+- Build meaningful professional and community connections
+
+G. Trust section
+Briefly explain reviews, user reporting, and verification features planned for the platform. Do not claim an unfinished verification system is already operational.
+
+H. Footer
+Include About, Explore, Login, Privacy Policy, and Terms links where the corresponding pages exist.
+
+Create an attractive, complete responsive experience. Do not use unreliable external images as essential UI assets.
+
+--------------------------------------------------
+4. INITIAL ROUTES
+--------------------------------------------------
+
+Create:
+/
+ /login
+ /signup
+ /explore
+ /not-found handling
+
+At this stage, authentication pages may contain the visual page shell and appropriate placeholder states. Implement real authentication in Phase 2.
+
+Do not create fake user accounts, real-looking activity counts, or fabricated ratings.
+
+--------------------------------------------------
+5. SUPABASE SETUP
+--------------------------------------------------
+
+Create:
+- lib/supabase/client.ts
+- lib/supabase/server.ts
+- environment validation
+- .env.example
+- Supabase migration directory
+
+Use the supported Supabase SSR pattern for Next.js.
+
+Required environment variables:
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+
+Use a server-only key only for operations that genuinely require privileged access. Prefer user-scoped Supabase operations and database policies.
+
+Keep secrets in Replit Secrets. Do not request the user to paste credentials into source files.
+
+If Supabase is not configured yet:
+- keep the application runnable
+- provide a clear setup error where necessary
+- document the missing configuration
+- never pretend real authentication or database operations succeeded
+
+--------------------------------------------------
+6. INITIAL DATABASE SCHEMA
+--------------------------------------------------
+
+Create a version-controlled migration for profiles:
+
+profiles
+- id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE
+- username TEXT UNIQUE NOT NULL
+- display_name TEXT NOT NULL
+- avatar_url TEXT NULL
+- bio TEXT NULL
+- account_type TEXT NOT NULL
+- institution TEXT NULL
+- department TEXT NULL
+- location TEXT NULL
+- timezone TEXT NULL
+- availability TEXT NULL
+- profile_visibility TEXT NOT NULL DEFAULT 'public'
+- onboarding_completed BOOLEAN NOT NULL DEFAULT FALSE
+- verification_status TEXT NOT NULL DEFAULT 'unverified'
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- updated_at TIMESTAMPTZ DEFAULT NOW()
+
+Allowed account types:
+student
+teacher
+professional
+community
+
+Allowed profile visibility:
+public
+private
+
+Allowed verification states:
+unverified
+pending
+verified
+rejected
+
+Create the skills catalog:
+
+skills
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- name TEXT UNIQUE NOT NULL
+- slug TEXT UNIQUE NOT NULL
+- category TEXT NOT NULL
+- description TEXT NULL
+- is_active BOOLEAN NOT NULL DEFAULT TRUE
+- created_at TIMESTAMPTZ DEFAULT NOW()
+
+Seed legitimate catalog entries:
+Programming, Graphic Design, Photography, Video Editing, Writing, English, Mathematics, Public Speaking, UI/UX Design, Digital Marketing, Excel, Research, Tutoring, Career Guidance, and Content Creation.
+
+Create a secure profile-creation trigger for new Supabase Auth users.
+
+The trigger must not allow users to assign themselves administrator privileges or verified status. Use a fixed search_path and schema-qualified references for privileged functions.
+
+Do not duplicate the authentication email in the public profile table unless a documented requirement emerges.
+
+--------------------------------------------------
+7. DATABASE SECURITY
+--------------------------------------------------
+
+Enable RLS on exposed tables.
+
+Create explicit policies for:
+- Users reading and updating their own allowed profile fields.
+- Authenticated users viewing discoverable public profiles.
+- Private profile isolation.
+- Appropriate read access to the skills catalog.
+- Restricted skill catalog modifications.
+
+A public profile must not become readable merely because the browser knows its UUID.
+
+Protect privileged fields such as verification status and administrative roles using database grants or secure server-side operations. RLS alone does not prevent every unauthorized column update.
+
+Never disable RLS to make the application work.
+
+--------------------------------------------------
+8. DOCUMENTATION AND VALIDATION
+--------------------------------------------------
+
+Create:
+docs/architecture.md
+docs/database.md
+docs/setup.md
+docs/replit-workflow.md
+
+Document:
+- Project structure
+- Design tokens
+- Database schema
+- Supabase setup
+- Required Replit Secrets
+- Development run command
+- Migration application instructions
+
+Run the application in Replit Preview.
+
+Run available lint, type checks, and production build.
+
+Inspect desktop and mobile layouts.
+
+Do not proceed to Phase 2 automatically. Finish this phase with a summary of completed work, actual test results, and any remaining configuration required.
+```
+
+## PHASE 2 — AUTHENTICATION, SIGN-UP, LOGIN AND ONBOARDING
+
+```text
+Continue building Pairly in the existing Replit project.
+
+First inspect the repository, Phase 1 documentation, Supabase configuration, database migrations, and current Preview status.
+
+Preserve existing functionality and design.
+
+Implement ONLY Phase 2: real authentication, protected routes, and user onboarding.
+
+Do not implement listings, Smart Matching, chat, reviews, or administration yet.
+
+Start with a concise task plan, implement the phase, and validate it in Replit Preview.
+
+--------------------------------------------------
+1. SUPABASE AUTHENTICATION
+--------------------------------------------------
+
+Implement:
+- Email/password signup
+- Login
+- Logout
+- Email verification
+- Forgot password
+- Password reset
+- Auth callback
+- Current-user retrieval
+- Session persistence
+
+Use the current supported Supabase Auth and Next.js SSR integration.
+
+Create routes:
+ /login
+ /signup
+ /auth/callback
+ /forgot-password
+ /auth/reset-password
+ /onboarding
+
+Create reusable components:
+- LoginForm
+- SignupForm
+- PasswordField
+- AuthPageLayout
+- FormError
+- AuthLoadingState
+- OnboardingStepper
+- AccountTypeSelector
+- SkillMultiSelect
+
+Use React Hook Form and Zod for accessible form validation where appropriate.
+
+Never manually store passwords.
+
+Do not expose authentication tokens in frontend logs, public URLs, or UI output.
+
+Use Replit Secrets for Supabase configuration.
+
+--------------------------------------------------
+2. ROUTE PROTECTION
+--------------------------------------------------
+
+Protect authenticated pages using the supported Supabase SSR session pattern.
+
+Rules:
+- Visitors may view the landing page and public authentication pages.
+- Only authenticated users may access private application data.
+- Users who have not completed onboarding should be redirected to /onboarding when entering protected application routes.
+- Completed users should not be repeatedly sent through onboarding.
+- Callback handling must validate its input.
+- Never trust a client-provided user ID for authorization.
+
+Handle session refresh correctly and avoid exposing private pages to unauthenticated users.
+
+--------------------------------------------------
+3. USER SKILLS DATABASE
+--------------------------------------------------
+
+Create a migration:
+
+user_skills
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- user_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- skill_id UUID NOT NULL REFERENCES skills(id) ON DELETE RESTRICT
+- direction TEXT NOT NULL CHECK (direction IN ('offer', 'want'))
+- proficiency TEXT NULL CHECK (
+  proficiency IS NULL OR proficiency IN (
+    'beginner',
+    'intermediate',
+    'advanced',
+    'expert'
+  )
+)
+- notes TEXT NULL
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- updated_at TIMESTAMPTZ DEFAULT NOW()
+
+Add:
+UNIQUE(user_id, skill_id, direction)
+
+Create indexes for user_id, skill_id, and direction.
+
+A person may both offer and want the same skill, but cannot add the same skill twice under the same direction.
+
+Add explicit RLS policies:
+- Users can manage their own skill relationships.
+- Public skill information is visible only when the profile visibility rules permit it.
+- Users cannot alter another person's skills.
+- Private profiles do not become discoverable through direct user_skills queries.
+
+If necessary, expose public profile skills through a secure database function or carefully authorized server-side query.
+
+--------------------------------------------------
+4. ONBOARDING EXPERIENCE
+--------------------------------------------------
+
+Build a friendly four-step onboarding flow.
+
+STEP 1: BASIC INFORMATION
+- Display name
+- Unique username
+- Account type
+- Optional avatar
+- Biography
+
+Account types:
+- Student
+- Teacher
+- Professional
+- Community
+
+STEP 2: BACKGROUND
+- Institution or workplace
+- Department or field
+- Optional city
+- Optional timezone
+- Optional availability
+
+STEP 3: SKILLS
+- Choose offered skills.
+- Choose wanted skills.
+- Search the existing skills catalog.
+- Add multiple skills.
+- Select proficiency for offered skills.
+- Optionally add notes.
+
+Require at least one offered skill and one wanted skill before completing onboarding. Users should be able to edit these later.
+
+STEP 4: REVIEW
+- Show the collected information.
+- Permit corrections.
+- Provide a Complete Profile button.
+
+Create an attractive progress indicator, skill chips, selected states, and responsive layouts.
+
+--------------------------------------------------
+5. SAVE AND COMPLETE ONBOARDING
+--------------------------------------------------
+
+Save changes using authenticated, server-authorized database operations.
+
+Requirements:
+- Validate all inputs server-side.
+- Enforce username uniqueness.
+- Verify selected skill IDs exist and are active.
+- Prevent duplicate skill relationships.
+- Save the profile and skill relationships reliably.
+- Set onboarding_completed to true only after all required operations succeed.
+
+Use a transaction or restricted database function where appropriate to prevent partial completion.
+
+If an operation fails:
+- preserve the user's form values
+- display a useful error
+- do not mark onboarding complete
+- do not display false success notifications
+
+Do not permit ordinary users to modify verification_status or administrative fields.
+
+--------------------------------------------------
+6. AUTHENTICATED APPLICATION SHELL
+--------------------------------------------------
+
+Prepare the main navigation:
+
+Dashboard
+Explore
+My Skills
+My Listings
+Requests
+Messages
+Profile
+Settings
+
+Unfinished routes may show designed empty states, but must not pretend their functionality exists.
+
+Continue using Pairly's colors:
+#4B3F72
+#A78BFA
+#A7F3D0
+#F8FAFC
+#1F2937
+
+Use soft rounded forms and cards, generous whitespace, clean typography, and mobile-first layouts.
+
+--------------------------------------------------
+7. TESTING
+--------------------------------------------------
+
+Test:
+- Registration
+- Login
+- Logout
+- Invalid credentials
+- Email verification configuration
+- Password recovery
+- Callback errors
+- Session refresh
+- Protected routes
+- Username uniqueness
+- Onboarding validation
+- Skill selection
+- Duplicate skill prevention
+- User ownership
+- Failure recovery
+
+Use test fixtures only in tests.
+
+Run lint, TypeScript checks, and build. Test the main authentication and onboarding flows in Replit Preview where available.
+
+Update docs/database.md and docs/setup.md.
+
+Stop after Phase 2 and report verified test results.
+```
+
+## PHASE 3 — USER PROFILES, SKILL MANAGEMENT AND LISTING CRUD
+
+```text
+Continue from the existing Pairly project in Replit.
+
+Inspect the current profile model, user_skills table, authentication, RLS policies, and UI before editing.
+
+Implement ONLY Phase 3:
+- Profile viewing and editing
+- Offered/wanted skill management
+- Listing creation, editing, publishing, pausing, and closing
+
+Do not build Smart Matching, complex Explore filters, chat, reviews, or the admin dashboard yet.
+
+--------------------------------------------------
+1. LISTINGS DATABASE
+--------------------------------------------------
+
+Create a migration for:
+
+listings
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- owner_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- user_skill_id UUID NOT NULL REFERENCES user_skills(id) ON DELETE RESTRICT
+- title TEXT NOT NULL
+- description TEXT NOT NULL
+- session_format TEXT NOT NULL DEFAULT 'online'
+- location TEXT NULL
+- duration_minutes INTEGER NULL
+- status TEXT NOT NULL DEFAULT 'draft'
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- updated_at TIMESTAMPTZ DEFAULT NOW()
+
+Allowed session formats:
+online
+in_person
+hybrid
+
+Allowed statuses:
+draft
+published
+paused
+closed
+
+A listing's type must be derived from the linked user_skills.direction field:
+- offer
+- want
+
+Do not maintain a separate listing type that can contradict the underlying skill direction.
+
+Validate:
+- owner_id matches user_skills.user_id.
+- A published offer references an offered skill.
+- A published request references a wanted skill.
+- Skill ownership cannot be forged.
+- Required fields and session format are valid.
+
+Use appropriate foreign keys, constraints, indexes, updated_at handling, and RLS policies.
+
+Only authorized users may modify their own listings. Public discovery must return only published listings associated with discoverable profiles.
+
+--------------------------------------------------
+2. PROFILE ROUTES
+--------------------------------------------------
+
+Implement:
+ /profile/[username]
+ /profile/edit
+ /my-skills
+ /my-listings
+
+Public profile contents:
+- Avatar
+- Display name
+- Username
+- Account type
+- Bio
+- Institution/workplace
+- Department
+- Location when provided
+- Offered skills
+- Wanted skills
+- Published listings
+- Verification badge only if actually verified
+
+Do not invent reviews, completed exchanges, badges, points, or popularity statistics.
+
+Private profiles must not reveal hidden fields through secondary API calls or direct UUID access.
+
+Implement profile editing for:
+- Display name
+- Username
+- Avatar
+- Bio
+- Institution
+- Department
+- Location
+- Timezone
+- Availability
+- Profile visibility
+
+Do not allow ordinary profile updates to change verification status or administrative privileges.
+
+--------------------------------------------------
+3. SKILLS MANAGEMENT
+--------------------------------------------------
+
+Complete /my-skills.
+
+Components:
+- SkillSearch
+- SkillPicker
+- OfferedSkillsSection
+- WantedSkillsSection
+- SkillItem
+- ProficiencySelector
+- AddSkillDialog
+- RemoveSkillDialog
+
+Users can:
+- Add offered skills.
+- Add wanted skills.
+- Edit proficiency.
+- Edit notes.
+- Remove skills.
+- Search the skill catalog.
+
+Prevent duplicates.
+
+If a skill is referenced by a listing, require the user to handle the relevant listing before removing that skill relationship.
+
+Preserve historical records and avoid accidental cascading deletion of unrelated data.
+
+--------------------------------------------------
+4. LISTING PAGES
+--------------------------------------------------
+
+Implement:
+ /listings
+ /listings/new
+ /listings/[id]
+ /listings/[id]/edit
+
+Create:
+- ListingCard
+- ListingForm
+- ListingDetails
+- ListingTypeBadge
+- ListingStatusBadge
+- SessionFormatBadge
+- ListingActions
+- ListingGrid
+- ListingEmptyState
+
+Each listing should show:
+- Title
+- Offer/request type
+- Related skill
+- Owner preview
+- Description
+- Format
+- Location when relevant
+- Duration when provided
+- Publication status
+
+Creation and editing forms must validate inputs, enforce ownership, and show useful errors.
+
+Allow owners to:
+- Create drafts
+- Publish listings
+- Edit listings
+- Pause and resume listings
+- Close listings
+- Delete listings when historical dependencies allow it
+
+Do not expose drafts to unauthorized users.
+
+--------------------------------------------------
+5. DESIGN
+--------------------------------------------------
+
+Use the Pairly palette:
+#4B3F72
+#A78BFA
+#A7F3D0
+#F8FAFC
+#1F2937
+
+Create soft rounded listing cards, distinct OFFER and REQUEST labels, readable profile sections, consistent skill chips, responsive grids, skeletons, and empty states.
+
+Ensure desktop and mobile layouts work naturally.
+
+--------------------------------------------------
+6. TESTING
+--------------------------------------------------
+
+Test:
+- Profile editing
+- Profile visibility
+- Username collisions
+- Skill create/update/delete
+- Listing create/update/delete
+- Listing publication
+- Listing ownership
+- Skill/listing direction consistency
+- Invalid duration and empty title
+- Unauthenticated access
+- Cross-user access
+- Referenced skill deletion
+
+Run lint, type checks, and build.
+
+Use Replit Preview to inspect profile and listing workflows.
+
+Update migration documentation. Stop after Phase 3.
+```
+
+## PHASE 4 — EXPLORE, FILTERING AND SMART MATCHING
+
+```text
+Continue building Pairly in Replit.
+
+Inspect the existing schema, profiles, user_skills relationships, listings, RLS policies, and design components first.
+
+Implement ONLY Phase 4:
+- People discovery
+- Listing discovery
+- Search and filters
+- Deterministic Smart Matching
+
+Do not implement chat, reviews, badges, or administration yet.
+
+Smart Matching must use real database records and deterministic code. Do not use an LLM to determine match scores.
+
+--------------------------------------------------
+1. EXPLORE PAGE
+--------------------------------------------------
+
+Complete /explore with two views:
+- People
+- Listings
+
+Add:
+- Search input
+- Skill filter
+- Category filter
+- Account-type filter
+- Location filter
+- Online/in-person/hybrid filter
+- Offer/request filter
+- Sorting
+- Pagination
+- Reset filters
+- Responsive filter drawer for mobile
+
+For the People view, add a minimum match percentage filter.
+
+For Listings, add title/keyword search, skill, category, type, format, location, and newest-first sorting.
+
+Use query parameters where practical so the results can be refreshed or shared.
+
+Only display published listings and discoverable profiles.
+
+Never fetch every user's complete private profile or skill history into the browser.
+
+--------------------------------------------------
+2. SMART MATCHING ALGORITHM
+--------------------------------------------------
+
+Create a dedicated matching module:
+
+lib/matching/
+- types.ts
+- scoring.ts
+- matching-service.ts
+- explanations.ts
+- validation.ts
+
+For user A:
+
+A_offers = skills where direction = 'offer'
+A_wants = skills where direction = 'want'
+
+For user B:
+
+B_offers = skills where direction = 'offer'
+B_wants = skills where direction = 'want'
+
+Compare stable skill IDs, not display labels.
+
+Compute:
+A's wants coverage =
+count(B_offers intersect A_wants) / count(A_wants)
+
+B's wants coverage =
+count(A_offers intersect B_wants) / count(B_wants)
+
+Clamp each coverage to [0, 1].
+
+Overall score:
+round(100 * (A's wants coverage + B's wants coverage) / 2)
+
+Handle empty wanted-skill sets without division by zero. Profiles with insufficient matching information must not receive a misleading reciprocal score.
+
+A reciprocal match must have at least one matching skill in each direction.
+
+Exclude:
+- Current user
+- Incomplete profiles
+- Private profiles
+- Ineligible users
+- Blocked relationships when available
+
+Do not calculate match scores using random data or hard-coded percentages.
+
+--------------------------------------------------
+3. EXPLAIN EACH MATCH
+--------------------------------------------------
+
+Return structured data such as:
+
+{
+  "user_id": "...",
+  "match_percentage": 100,
+  "my_wants_coverage": 100,
+  "their_wants_coverage": 100,
+  "skills_i_offer_they_want": [],
+  "skills_they_offer_i_want": [],
+  "explanation": "..."
+}
+
+All values must be computed from database records.
+
+A match card should show:
+- Percentage
+- Person's name and account type
+- Matching skills in both directions
+- Clear explanation
+- View Profile button
+- Relevant listing when available
+
+Example explanation:
+"You offer Graphic Design, which they want to learn. They offer English tutoring, which matches your learning goals."
+
+If only one direction matches, do not present the pair as a reciprocal match. You may show one-way compatibility separately if useful, clearly labeled.
+
+--------------------------------------------------
+4. SECURE DATA RETRIEVAL
+--------------------------------------------------
+
+Use a server-side authenticated query or secure database function.
+
+Ensure the response contains only public profile fields and the skill information needed for matching.
+
+Do not expose Supabase administrative keys.
+
+Do not trust a user ID supplied by the browser as proof of identity.
+
+Use database limits, pagination, appropriate indexes, and bounded candidate sets to prevent expensive full-database scans.
+
+Do not persist computed matches unless there is a demonstrated need.
+
+--------------------------------------------------
+5. LISTING COMPATIBILITY
+--------------------------------------------------
+
+When useful, explain how a listing relates to the current user's skills.
+
+Clearly distinguish:
+- Search relevance
+- A single compatible skill
+- A reciprocal Smart Match
+
+Do not give a perfect match score merely because the listing has the same keyword as a skill.
+
+--------------------------------------------------
+6. TESTS
+--------------------------------------------------
+
+Write unit tests for:
+- Perfect reciprocal match
+- Partial coverage with correct arithmetic
+- One-way compatibility
+- No common skills
+- Empty wanted-skill sets
+- Self-match exclusion
+- Private profile exclusion
+- Incomplete profiles
+- Stable-ID comparison
+- Duplicate relationship prevention
+
+Test filters, sorting, pagination, and user authorization.
+
+Run lint, TypeScript checks, tests, and build.
+
+Test /explore in Replit Preview. Fix defects before reporting completion.
+
+Stop after Phase 4.
+```
+
+## PHASE 5 — CONNECTION REQUESTS AND REAL-TIME CHAT
+
+```text
+Continue working on the existing Pairly project in Replit.
+
+Inspect the connection and database architecture before implementing changes.
+
+Implement ONLY Phase 5:
+- Connection requests
+- Request acceptance/rejection
+- Conversation creation
+- Real-time chat
+
+Preserve all earlier features.
+
+--------------------------------------------------
+1. CONNECTION REQUEST SCHEMA
+--------------------------------------------------
+
+Create:
+
+connection_requests
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- requester_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- recipient_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- listing_id UUID NULL REFERENCES listings(id) ON DELETE SET NULL
+- message TEXT NULL
+- status TEXT NOT NULL DEFAULT 'pending'
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- updated_at TIMESTAMPTZ DEFAULT NOW()
+
+Statuses:
+pending
+accepted
+rejected
+cancelled
+
+Constraints:
+- Requester and recipient must differ.
+- Listing ownership and eligibility must be validated.
+- Prevent duplicate pending requests, including opposite-direction duplicates.
+- Add appropriate indexes.
+
+Use a unique partial index over the unordered pair of participants while status is pending, or an equivalent race-safe database constraint.
+
+Enable RLS and restrict request visibility to authorized participants.
+
+--------------------------------------------------
+2. REQUEST INTERFACE
+--------------------------------------------------
+
+Create:
+ /requests
+ /requests/sent
+ /requests/received
+
+Components:
+- ConnectionRequestCard
+- SendRequestDialog
+- RequestStatusBadge
+- AcceptRequestButton
+- RejectRequestButton
+- CancelRequestButton
+
+Users can initiate requests from profiles, listings, and Smart Match cards.
+
+Show:
+- Recipient
+- Related listing, if present
+- Reciprocal skill context
+- Optional introduction message
+- Pending/accepted/rejected state
+
+The requester may cancel their own pending request.
+
+The recipient may accept or reject a pending request.
+
+Reject unauthorized state transitions and duplicate requests.
+
+--------------------------------------------------
+3. CONVERSATION SCHEMA
+--------------------------------------------------
+
+Create:
+
+conversations
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- connection_request_id UUID UNIQUE NOT NULL REFERENCES connection_requests(id) ON DELETE RESTRICT
+- participant_one_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- participant_two_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- last_message_at TIMESTAMPTZ NULL
+
+Create:
+
+messages
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- conversation_id UUID NOT NULL REFERENCES conversations(id) ON DELETE CASCADE
+- sender_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- content TEXT NOT NULL
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- read_at TIMESTAMPTZ NULL
+
+Enforce:
+- Distinct participants
+- Participants match the linked accepted request
+- One conversation per accepted request
+- Only accepted requests can produce conversations
+
+Implement atomic acceptance/conversation creation using a carefully authorized database function or equivalent transaction. If using SECURITY DEFINER, fix search_path, schema-qualify references, validate auth.uid(), and restrict function execution permissions.
+
+Do not rely on the client to declare that a request was accepted.
+
+--------------------------------------------------
+4. CHAT PAGES
+--------------------------------------------------
+
+Create:
+ /chat
+ /chat/[conversationId]
+
+Components:
+- ConversationList
+- ConversationListItem
+- ChatHeader
+- MessageList
+- MessageBubble
+- MessageComposer
+- ReadStatus
+- ChatEmptyState
+
+Features:
+- Paginated message history
+- Text message sending
+- Message timestamps
+- Read status
+- Real-time message updates using Supabase Realtime
+- Unread indicators
+- Send-failure handling
+- Reconnection handling
+
+Use database-enforced authorization for realtime subscriptions and message access.
+
+Treat message bodies as plain text. Do not render arbitrary user HTML.
+
+Only participants can access a conversation.
+
+--------------------------------------------------
+5. CHAT SECURITY
+--------------------------------------------------
+
+Enable RLS for conversations and messages.
+
+Rules:
+- Only participants can read their conversations.
+- Only participants can read conversation messages.
+- sender_id must match auth.uid().
+- A sender cannot create a message as another user.
+- Messages must belong to an authorized conversation.
+- Users cannot create arbitrary conversations.
+- No messaging through rejected, cancelled, or pending requests.
+
+Limit message length and reject empty messages.
+
+Prepare the code so blocking from Phase 6 can restrict existing conversations and new messages.
+
+Never expose Supabase secret/service-role credentials in client code.
+
+--------------------------------------------------
+6. DESIGN AND VALIDATION
+--------------------------------------------------
+
+Use Pairly's brand palette and rounded-card visual system.
+
+Build responsive messaging layouts with clear sent/received bubbles, keyboard-accessible controls, useful errors, empty states, and loading indicators.
+
+Test:
+- Request creation
+- Duplicate requests
+- Cancellation
+- Accept/reject rules
+- Atomic conversation creation
+- Concurrent acceptance
+- Message sending
+- Realtime authorization
+- Unauthorized message reads
+- Forged sender IDs
+- Invalid message length
+- Participant-only conversation access
+
+Run checks and test the complete request-to-chat flow in Replit Preview.
+
+Update docs/database.md and docs/architecture.md.
+
+Stop after Phase 5.
+```
+
+## PHASE 6 — EXCHANGE COMPLETION, REVIEWS, GAMIFICATION AND TRUST & SAFETY
+
+```text
+Continue developing Pairly in Replit.
+
+Inspect existing requests, conversations, profiles, listings, and database policies.
+
+Implement ONLY Phase 6:
+- Exchange workflow
+- Reviews
+- Points and badges
+- User reporting
+- User blocking
+- Verification requests
+
+Do not build the admin dashboard yet.
+
+--------------------------------------------------
+1. EXCHANGES
+--------------------------------------------------
+
+Create:
+
+exchanges
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- connection_request_id UUID UNIQUE NOT NULL REFERENCES connection_requests(id) ON DELETE RESTRICT
+- status TEXT NOT NULL DEFAULT 'in_progress'
+- requester_confirmed_at TIMESTAMPTZ NULL
+- recipient_confirmed_at TIMESTAMPTZ NULL
+- completed_at TIMESTAMPTZ NULL
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- updated_at TIMESTAMPTZ DEFAULT NOW()
+
+Statuses:
+in_progress
+completed
+cancelled
+
+Only accepted connection requests may create an exchange.
+
+An exchange is completed only when both participants independently confirm completion.
+
+Implement a secure atomic confirmation operation. Confirm the identity of each participant through auth.uid(). Do not trust participant IDs supplied by the client.
+
+Create:
+ /exchanges
+ /exchanges/[id]
+
+Show exchange context, other participant, status, and completion confirmation.
+
+--------------------------------------------------
+2. REVIEWS
+--------------------------------------------------
+
+Create:
+
+reviews
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- exchange_id UUID NOT NULL REFERENCES exchanges(id) ON DELETE RESTRICT
+- reviewer_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- reviewee_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5)
+- feedback TEXT NULL
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- updated_at TIMESTAMPTZ DEFAULT NOW()
+
+Constraints:
+- Reviewer and reviewee must differ.
+- UNIQUE(exchange_id, reviewer_id).
+- Both participants must belong to the exchange.
+- The exchange must be completed.
+- Users cannot review unrelated participants.
+
+Create:
+- ReviewForm
+- RatingInput
+- ReviewCard
+- ReviewList
+- ReviewSummary
+
+Display real reviews and ratings on public profiles according to visibility rules.
+
+Never fabricate ratings or review counts.
+
+--------------------------------------------------
+3. POINTS AND BADGES
+--------------------------------------------------
+
+Create:
+
+badges
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- slug TEXT UNIQUE NOT NULL
+- name TEXT NOT NULL
+- description TEXT NOT NULL
+- icon_name TEXT NOT NULL
+- criteria_type TEXT NOT NULL
+- criteria_value INTEGER NOT NULL DEFAULT 1
+- is_active BOOLEAN NOT NULL DEFAULT TRUE
+- created_at TIMESTAMPTZ DEFAULT NOW()
+
+Create:
+
+user_badges
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- user_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- badge_id UUID NOT NULL REFERENCES badges(id) ON DELETE RESTRICT
+- awarded_at TIMESTAMPTZ DEFAULT NOW()
+- UNIQUE(user_id, badge_id)
+
+Create:
+
+points_ledger
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- user_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- event_key TEXT NOT NULL
+- event_type TEXT NOT NULL
+- points INTEGER NOT NULL
+- metadata JSONB NOT NULL DEFAULT '{}'::jsonb
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- UNIQUE(user_id, event_key)
+
+Seed starter badges:
+First Exchange
+Helpful Member
+Consistent Collaborator
+Knowledge Sharer
+Community Builder
+
+Award points only for validated events using trusted backend/database logic.
+
+Rules:
+- Users cannot award themselves points.
+- Users cannot edit the points ledger.
+- Duplicate event processing cannot award points twice.
+- Badge criteria must be deterministic and documented.
+- Awarded badges must correspond to real achievements.
+
+Do not use points to assign permissions or administrative roles.
+
+--------------------------------------------------
+4. REPORTS AND BLOCKS
+--------------------------------------------------
+
+Create:
+
+user_blocks
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- blocker_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- blocked_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- UNIQUE(blocker_id, blocked_id)
+- CHECK(blocker_id <> blocked_id)
+
+Create:
+
+reports
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- reporter_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- reported_user_id UUID NULL REFERENCES profiles(id) ON DELETE SET NULL
+- listing_id UUID NULL REFERENCES listings(id) ON DELETE SET NULL
+- reason TEXT NOT NULL
+- details TEXT NULL
+- status TEXT NOT NULL DEFAULT 'pending'
+- moderator_note TEXT NULL
+- reviewed_by UUID NULL REFERENCES auth.users(id) ON DELETE SET NULL
+- created_at TIMESTAMPTZ DEFAULT NOW()
+- updated_at TIMESTAMPTZ DEFAULT NOW()
+
+Require at least one report target.
+
+Allowed reasons:
+harassment
+spam
+scam
+misleading_listing
+inappropriate_content
+impersonation
+other
+
+Statuses:
+pending
+in_review
+resolved
+dismissed
+
+Create:
+- ReportDialog
+- BlockUserDialog
+- BlockedUsersSettings
+- ReportStatusView
+- SafetyNotice
+
+Users can submit reports and manage their own blocks.
+
+Users cannot change moderation status or access private moderator notes.
+
+Blocking must prevent new connection requests and new messages. Enforce this in database policies or trusted database operations, not just frontend checks.
+
+Preserve historical conversation data unless a documented data-retention policy requires otherwise.
+
+--------------------------------------------------
+5. VERIFICATION
+--------------------------------------------------
+
+Create:
+
+verification_requests
+- id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+- user_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+- method TEXT NOT NULL
+- status TEXT NOT NULL DEFAULT 'pending'
+- private_evidence_path TEXT NULL
+- submitted_at TIMESTAMPTZ DEFAULT NOW()
+- reviewed_at TIMESTAMPTZ NULL
+- reviewed_by UUID NULL REFERENCES auth.users(id) ON DELETE SET NULL
+- reviewer_note TEXT NULL
+
+Methods:
+institutional_email
+manual_review
+
+Statuses:
+pending
+approved
+rejected
+
+Build a verification request page and display its status.
+
+Do not ask for unnecessary identity information.
+
+If files are supported:
+- Store them in private storage.
+- Enforce access controls.
+- Validate format and size.
+- Never expose public URLs to private evidence.
+- Never send verification evidence to an LLM.
+- Apply the documented retention policy.
+
+Only authorized administrators may approve verification.
+
+--------------------------------------------------
+6. PROFILE INTEGRATION
+--------------------------------------------------
+
+Display only real:
+- Completed exchanges
+- Average review ratings
+- Review counts
+- Earned badges
+- Points
+- Verification status
+
+Create meaningful empty states when no data exists.
+
+--------------------------------------------------
+7. RLS AND TESTING
+--------------------------------------------------
+
+Every new table requires deliberate grants and RLS policies.
+
+Test:
+- Exchange completion requires both confirmations.
+- Only exchange participants can confirm.
+- Reviews require completed exchanges.
+- Duplicate reviews are rejected.
+- Points cannot be duplicated.
+- Users cannot award themselves badges.
+- Private reports remain private.
+- Users cannot modify moderation status.
+- Blocks prevent new requests and messages.
+- Users cannot verify themselves.
+- Private verification files are inaccessible to unauthorized users.
+
+Run lint, TypeScript checks, migrations/tests where available, and production build.
+
+Inspect these workflows in Replit Preview.
+
+Update database and security documentation.
+
+Stop after Phase 6.
+```
+
+## PHASE 7 — ADMIN DASHBOARD, SETTINGS, DARK MODE AND FINAL REVIEW
+
+```text
+This is the final planned MVP phase for Pairly.
+
+Continue within the existing Replit workspace.
+
+Inspect the application, migrations, RLS policies, auth flows, chat, exchange logic, reports, and verification workflows first.
+
+Do not rebuild the project from scratch. Preserve working functionality and avoid unrelated features.
+
+Implement:
+- Secure admin dashboard
+- Administrative moderation
+- User settings
+- Dark mode
+- Final dashboard integration
+- End-to-end testing
+- Security review
+
+--------------------------------------------------
+1. SECURE ADMIN AUTHORIZATION
+--------------------------------------------------
+
+Create:
+
+admin_users
+- user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE
+- role TEXT NOT NULL DEFAULT 'admin'
+- created_at TIMESTAMPTZ DEFAULT NOW()
+
+Administrative privileges must never be self-assigned through public signup, profile edits, user metadata, or ordinary client requests.
+
+Provision the first administrator manually through the trusted Supabase SQL Editor or another documented secure procedure.
+
+Implement a server-side admin authorization helper.
+
+Requirements:
+- Validate the authenticated user.
+- Confirm membership in admin_users.
+- Deny access by default.
+- Protect administrative database operations independently of UI visibility.
+- Never trust a role value supplied by the browser.
+- Never expose Supabase secret keys to client-side code.
+
+Protect admin_users using appropriate grants and RLS. Any privileged SQL function must use a fixed search_path, schema-qualified references, appropriate ownership, and restricted execution permissions.
+
+--------------------------------------------------
+2. ADMIN DASHBOARD
+--------------------------------------------------
+
+Create:
+ /admin
+ /admin/users
+ /admin/users/[id]
+ /admin/listings
+ /admin/reports
+ /admin/reports/[id]
+ /admin/verifications
+ /admin/verifications/[id]
+ /admin/badges
+
+Build components:
+- AdminLayout
+- AdminSidebar
+- AdminMetricCard
+- AdminTable
+- AdminSearch
+- AdminFilterBar
+- ReportDetailsPanel
+- VerificationReviewPanel
+- ModerationActionDialog
+- BadgeManagementForm
+
+Display actual database-derived metrics:
+- Registered users
+- Completed onboarding profiles
+- Published listings
+- Pending connection requests
+- Completed exchanges
+- Pending reports
+- Pending verification requests
+
+Never hard-code demonstration statistics into the live dashboard.
+
+Use pagination, search, filters, loading states, and informative empty states.
+
+--------------------------------------------------
+3. USER AND LISTING MANAGEMENT
+--------------------------------------------------
+
+Provide authorized administrators with tools to:
+- Search users
+- Filter by account type
+- Filter by verification state
+- View relevant profile information
+- Review associated reports
+- Inspect published listings
+- Pause or close a listing when justified by moderation policy
+
+If implementing account suspension, create an explicit status and enforce it server-side and through the relevant database policies. Do not merely hide a suspended user's buttons.
+
+Avoid destructive admin actions that have no real backend behavior.
+
+Require confirmation for significant moderation changes and record an administrative audit event.
+
+Never expose passwords, tokens, private verification files, or unrelated personal details.
+
+--------------------------------------------------
+4. REPORT AND VERIFICATION MODERATION
+--------------------------------------------------
+
+Reports:
+- View and filter pending reports.
+- Inspect authorized report details.
+- Add private moderator notes.
+- Mark reports in review, resolved, or dismissed.
+- Record reviewer and timestamp.
+
+Verification:
+- Review pending requests.
+- Inspect authorized private evidence when applicable.
+- Approve or reject requests.
+- Record reviewer and timestamp.
+- Update the protected profile verification status through an authorized operation.
+
+Badge management:
+- View, create, edit, enable, or disable badge definitions.
+- Allow only predefined criteria types.
+- Do not allow arbitrary executable rules or SQL.
+- Preserve historical awarded badges according to documented rules.
+
+Ordinary users must not invoke moderation operations by calling endpoints directly.
+
+--------------------------------------------------
+5. USER SETTINGS
+--------------------------------------------------
+
+Create:
+ /settings
+ /settings/profile
+ /settings/notifications
+ /settings/privacy
+ /settings/security
+
+Implement:
+- Edit profile
+- Update availability
+- Manage profile visibility
+- Manage actual notification preferences
+- View and remove blocks
+- View verification status
+- Sign out
+- Request account deletion
+
+Create:
+- SettingsLayout
+- SettingsNavigation
+- PrivacySettingsForm
+- NotificationSettingsForm
+- BlockedUsersSettings
+- DangerZone
+- DeleteAccountDialog
+
+Store notification preferences only for features that genuinely exist.
+
+--------------------------------------------------
+6. ACCOUNT DELETION
+--------------------------------------------------
+
+Implement a secure account deletion flow.
+
+Flow:
+1. Authenticate and authorize the request.
+2. Require explicit confirmation.
+3. Stop new background operations for the account.
+4. Delete or revoke provider resources only when supported and appropriate.
+5. Delete private uploaded files.
+6. Remove or anonymize user-owned data according to documented retention rules.
+7. Remove credentials and private data.
+8. Handle foreign-key dependencies and historical exchanges deliberately.
+9. Verify that deletion steps succeeded.
+10. Display completion only after the operation is confirmed.
+
+Do not claim provider-side deletion when only local Pairly records have been removed.
+
+Never leave private uploaded files behind unintentionally.
+
+Test deletion using a development account, not a real user's production data.
+
+--------------------------------------------------
+7. DARK MODE
+--------------------------------------------------
+
+Complete dark mode using next-themes and a class-based Tailwind configuration compatible with the existing project.
+
+Support:
+- Light
+- Dark
+- System preference
+
+Add an accessible theme toggle in the main navigation and settings.
+
+Ensure:
+- Preference persists after refresh.
+- Theme applies without avoidable hydration flashes.
+- Contrast remains readable.
+- Dialogs, menus, inputs, cards, chat bubbles, tables, badges, and status labels support both themes.
+
+Keep Pairly's identity:
+Deep Purple #4B3F72
+Soft Lavender #A78BFA
+Mint Green #A7F3D0
+
+Do not use a global invert filter or an entirely separate dark UI.
+
+Audit every major page in both themes.
+
+--------------------------------------------------
+8. FINAL NAVIGATION AND DASHBOARD
+--------------------------------------------------
+
+Complete the authenticated application navigation:
+
+Dashboard
+Explore
+My Skills
+My Listings
+Requests
+Messages
+Exchanges
+Profile
+Settings
+
+Show Admin navigation only for authorized administrators.
+
+Build a dashboard with actual:
+- Smart Matches
+- Pending requests
+- Recent messages where supported
+- Listings
+- Exchange status
+- Earned badges
+
+Use real queries and authorization. Never show fake user activity or fabricated match scores.
+
+Ensure every visible action performs its advertised function or is clearly marked unavailable.
+
+--------------------------------------------------
+9. END-TO-END VALIDATION
+--------------------------------------------------
+
+Test these complete journeys:
+
+A. Signup → Email verification → Onboarding → Select skills → Dashboard
+
+B. Edit profile → Add skills → Create listing → Publish listing
+
+C. Explore → Filter → Open profile → Inspect a verified reciprocal match
+
+D. Send request → Accept request → Create conversation → Send and receive a real-time message
+
+E. Confirm exchange from both participants → Submit review → Award eligible points and badges
+
+F. Report user/listing → Block user → Confirm new requests and messages are blocked
+
+G. Submit verification request → Admin review → Approve/reject → Confirm correct status
+
+H. Admin reviews report → Changes status → Administrative event recorded
+
+I. Change settings → Switch dark mode → Refresh → Preference remains applied
+
+J. Delete a development account → Verify deletion and cleanup
+
+--------------------------------------------------
+10. SECURITY AUDIT
+--------------------------------------------------
+
+Test for:
+- Cross-user data exposure
+- Unauthorized profile changes
+- Unauthorized listing changes
+- Forged message sender IDs
+- Unauthorized conversations
+- Invalid exchange completion
+- Review manipulation
+- Duplicate points
+- Self-assigned badges
+- Private report exposure
+- Verification manipulation
+- Admin privilege escalation
+- Supabase secret leakage
+- Unsafe file handling
+- Missing RLS policies
+- Insecure database functions
+- Broken deletion workflows
+
+Do not disable RLS to fix errors.
+
+Review every exposed table's grants and policies.
+
+Review privileged database functions and their execution permissions.
+
+Fix genuine defects rather than suppressing test failures.
+
+--------------------------------------------------
+11. REPLIT VALIDATION AND FINAL REPORT
+--------------------------------------------------
+
+Use Replit Preview and browser testing where available.
+
+Run:
+- Lint
+- TypeScript checks
+- Production build
+- Unit tests
+- Database/integration tests where configured
+- Authorization and RLS tests
+- Important end-to-end flows
+
+Inspect desktop and mobile layouts.
+
+Ensure:
+- App starts correctly in Replit.
+- Environment variables are documented.
+- Required secrets are not committed.
+- No broken routes exist.
+- No misleading success messages exist.
+- No fabricated statistics exist.
+- No buttons falsely imply working functionality.
+- Both themes remain readable.
+- Database migrations are version-controlled.
+- The project can be reproduced from documented setup instructions.
+
+Update:
+docs/architecture.md
+docs/database.md
+docs/setup.md
+docs/security.md
+docs/testing.md
+docs/final-review.md
+
+Report:
+- Completed features
+- Actual test results
+- Outstanding defects
+- Supabase configuration requirements
+- Any incomplete security controls
+- MVP limitations
+- Recommended future improvements
+
+Do not publish or deploy the application unless explicitly instructed.
+
+Finish with a stable and demonstrable university-level Pairly MVP.
+```
+
+## Replit execution rule for all seven phases
+
+1. Paste **only Phase 1** into Agent first.
+2. Let it inspect, plan, implement, and test.
+3. Check the result in Replit Preview before submitting the next phase.
+4. Keep the development Supabase project separate from production data and preserve checkpoints before substantial changes.
+5. Store secrets in Replit Secrets, not in prompt text, source files, or Git.
+6. If a phase fails, give Replit Agent a targeted debugging prompt for that phase instead of pasting the next phase on top of broken code.

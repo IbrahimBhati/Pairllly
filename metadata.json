@@ -1,0 +1,8 @@
+{
+  "name": "Pairly",
+  "description": "University-level peer-to-peer skill-sharing platform. Share skills, help others, and grow together.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
